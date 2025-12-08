@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Wall
+  - Weapons
+  - Monster
+  - Plant
+  - Ruong_Items
+  - Ruong_Keys
+  - Key
+  - Target
+  - NinjaItem
+  - KnightItem
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Wall
+  - Weapons
+  - Items
+  - Monster
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1893608693
+    locked: 0
+  - name: Wall
+    uniqueID: 805331481
+    locked: 0
+  - name: Items
+    uniqueID: 1535616065
+    locked: 0
+  - name: Player
+    uniqueID: 2738640285
+    locked: 0
+  - name: Weapons
+    uniqueID: 3457119141
+    locked: 0
+  - name: Monster
+    uniqueID: 3608026169
+    locked: 0
+  - name: UI
+    uniqueID: 2556457341
+    locked: 0
+  - name: door
+    uniqueID: 3329390821
+    locked: 0
+  m_RenderingLayers:
+  - Default
