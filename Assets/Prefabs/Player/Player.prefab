@@ -155,6 +155,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c024b0679575f874b8247555ca992035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  smokeEffect: {fileID: 9003955566922507759, guid: 106bfb7b1992d3e4f933abb103dcc3ca, type: 3}
+  smokeKnight: {fileID: 4696629276732016610, guid: 77c6ddf3baa685b4e8abdd6267d1981d, type: 3}
+  effectCollectKey: {fileID: 6344345250407453849, guid: 81d27d44ecf74254fb64ba579b080792, type: 3}
+  shurikenPrefab: {fileID: 757726474734241057, guid: 2d9c92a24f94f9b4eb11009bf9f07524, type: 3}
+  swordPrefab: {fileID: 2865254148492405592, guid: 1a1e6eab8574a40408dd195166edee91, type: 3}
+  shieldFx: {fileID: 1430458959111916406, guid: c7a319f17d13a154aa366a0dc476b64e, type: 3}
+  upgradeFx: {fileID: 6966496432456401246, guid: ca5d1dd6b925c844a9f752b5ff10d55e, type: 3}
+  redSkullFx: {fileID: 4690054270084626946, guid: 4d1e7540ccdffd64c97f4685b3122b88, type: 3}
+  blueSkullFx: {fileID: 4745948912462813794, guid: c6f9eb3b10d32864480a2e889543b982, type: 3}
+  defaultMaterial: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: aa8e1e9e802a44044b0faae628aa265d, type: 2}
+  hasNinjaItem: 0
+  hasKnightItem: 0
+  ninjaTimeLeft: 0
+  knightTimeLeft: 0
+  isShieldActive: 0
+  shieldTimeLeft: 0
+  isUpgradeActive: 0
+  upgradeTimeLeft: 0
 --- !u!61 &4089146621904810266
 BoxCollider2D:
   m_ObjectHideFlags: 0
