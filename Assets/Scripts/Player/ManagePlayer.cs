@@ -9,11 +9,11 @@ public class ManagePlayer : MonoBehaviour
     public int chestsOpened = 0;
     private int keysDropped = 0; // Số chìa đã rơi
     
-    [Header("Level Settings")]
-    public int currentLevel = 1; // Level hiện tại (1, 2, 3)
+   
     
     [Header("Required to unlock portal")]
     public int requiredChests = 4;
+    public int maxKeys = 4;
 
     [Header("Portal Object")]
     public GameObject portal;
@@ -38,53 +38,31 @@ public class ManagePlayer : MonoBehaviour
     }
     public void AddKey()
     {
+        if(keysCollected > maxKeys || keysDropped > maxKeys)
+        {
+            Debug.LogWarning("Cannot collect more keys than the maximum limit!");
+            return;
+        } else{
         keysCollected++;
         Debug.Log("Keys collected: " + keysCollected);
-        if (keysCollected == 4)
-        {
-            Debug.Log("All keys collected!");
         }
     }
     public void AddMonsterKill(Vector3 deathPosition)
     {
         monstersKilled++;
-        
-        // Lấy thông số theo level
-        int monstersPerKey = GetMonstersPerKey();
-        int maxKeys = GetMaxKeys();
-        
-        // Kiểm tra xem đã đến milestone chưa và chưa vượt quá max keys
-        if (monstersKilled % monstersPerKey == 0 && keysDropped < maxKeys)
+
+            if (keysDropped < maxKeys && (monstersKilled ==5 || monstersKilled ==10 || monstersKilled ==15 || monstersKilled ==20))
         {
             keysDropped++;
             Instantiate(fallKey, deathPosition, Quaternion.identity);
-            Debug.Log($"Level {currentLevel}: Monster kill milestone reached at {monstersKilled} kills. Key {keysDropped}/{maxKeys} spawned.");
         }
+        
+        
     }
     
-    // Lấy số quái cần giết để rơi 1 chìa theo level
-    private int GetMonstersPerKey()
-    {
-        switch (currentLevel)
-        {
-            case 1: return 4;  // Level 1: 4 quái = 1 chìa
-            case 2: return 6;  // Level 2: 6 quái = 1 chìa
-            case 3: return 8;  // Level 3: 8 quái = 1 chìa
-            default: return 4;
-        }
-    }
+   
     
     // Lấy số chìa tối đa theo level
-    private int GetMaxKeys()
-    {
-        switch (currentLevel)
-        {
-            case 1: return 4;  // Level 1: max 4 chìa
-            case 2: return 6;  // Level 2: max 6 chìa
-            case 3: return 8;  // Level 3: max 8 chìa
-            default: return 4;
-        }
-    }
     public void AddChestOpened()
     {
         if(keysCollected < 0){

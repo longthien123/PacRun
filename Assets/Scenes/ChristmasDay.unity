@@ -2253,7 +2253,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -2.1739714e-17, y: 0.0000000031423983, z: 6.831484e-26, w: 1}
-  m_LocalPosition: {x: 2.7657409, y: -10.78556, z: -10}
+  m_LocalPosition: {x: 2.7666104, y: -10.785569, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3049,7 +3049,8 @@ MonoBehaviour:
   monstersKilled: 0
   chestsOpened: 0
   currentLevel: 2
-  requiredChests: 6
+  requiredChests: 5
+  maxKeys: 5
   portal: {fileID: 80138872}
   fallKey: {fileID: 9074195237523953637, guid: 2b39e408b6794de4cba211bc9ae6775d, type: 3}
 --- !u!4 &923981267
