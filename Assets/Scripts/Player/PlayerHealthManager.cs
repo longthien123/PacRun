@@ -32,7 +32,9 @@ public static class PlayerHealthManager
     }
     public static void Heal(int amount)
     {
+        if(currentHealth < MaxHealth){
         currentHealth = Mathf.Min(MaxHealth, currentHealth + amount);
         OnHealthChanged?.Invoke(currentHealth);
+        }
     }
 }

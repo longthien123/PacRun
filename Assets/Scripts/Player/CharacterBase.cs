@@ -34,17 +34,11 @@ public class CharacterBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Plant"))
         {
-            if(PlayerHealthManager.CurrentHealth < PlayerHealthManager.MaxHealth)
-            {
-                PlayerHealthManager.Heal(10);
-                Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
-                Destroy(collision.gameObject);
-            }
+            Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
+            PlayerHealthManager.Heal(10);
             if(PlayerController.Instance.hasKnightItem && PlayerController.Instance.hasNinjaItem 
             && PlayerController.Instance.ninjaTimeLeft <= 20f && PlayerController.Instance.knightTimeLeft <= 20f)
             {
-            Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
-            PlayerController.Instance.ninjaTimeLeft += 2f;
             PlayerController.Instance.ninjaTimeLeft += 2f;
             PlayerController.Instance.knightTimeLeft += 2f;
             Destroy(collision.gameObject);

@@ -7,11 +7,13 @@ public class ManagePlayer : MonoBehaviour
     public int keysCollected = 0;
     public int monstersKilled = 0;
     public int chestsOpened = 0;
+    private int keysDropped = 0; // Số chìa đã rơi
     
-
+   
+    
     [Header("Required to unlock portal")]
-    
     public int requiredChests = 4;
+    public int maxKeys = 4;
 
     [Header("Portal Object")]
     public GameObject portal;
@@ -36,22 +38,31 @@ public class ManagePlayer : MonoBehaviour
     }
     public void AddKey()
     {
+        if(keysCollected > maxKeys || keysDropped > maxKeys)
+        {
+            Debug.LogWarning("Cannot collect more keys than the maximum limit!");
+            return;
+        } else{
         keysCollected++;
         Debug.Log("Keys collected: " + keysCollected);
-        if (keysCollected == 4)
-        {
-            Debug.Log("All keys collected!");
         }
     }
     public void AddMonsterKill(Vector3 deathPosition)
     {
         monstersKilled++;
-    if (monstersKilled == 4 || monstersKilled == 8 || monstersKilled == 12 || monstersKilled == 16)
-    {
-        Instantiate(fallKey, deathPosition, Quaternion.identity);
-        Debug.Log($"Monster kill milestone reached: {monstersKilled}. Fall key spawned at {deathPosition}.");
+
+            if (keysDropped < maxKeys && (monstersKilled ==5 || monstersKilled ==10 || monstersKilled ==15 || monstersKilled ==20))
+        {
+            keysDropped++;
+            Instantiate(fallKey, deathPosition, Quaternion.identity);
+        }
+        
+        
     }
-    }
+    
+   
+    
+    // Lấy số chìa tối đa theo level
     public void AddChestOpened()
     {
         if(keysCollected < 0){
