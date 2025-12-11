@@ -202,3 +202,5 @@ MonoBehaviour:
   defaultMaterial: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: aa8e1e9e802a44044b0faae628aa265d, type: 2}
   attackCooldown: 0.5
+  dropItems: []
+  dropChance: 0.25

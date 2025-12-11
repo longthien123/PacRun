@@ -52,18 +52,31 @@ public class Shuriken : MonoBehaviour
         {
             if (collision.collider.CompareTag("Monster"))
             {
+                // Tính sát thương (gấp đôi nếu upgrade active)
+                int finalDamage = damage;
+                if (PlayerController.Instance != null && PlayerController.Instance.isUpgradeActive)
+                {
+                    finalDamage *= 2;
+                }
+                
                 var monsterAI = collision.collider.GetComponent<MonsterAI>();
                 var monsterWalkRandom = collision.collider.GetComponent<MonsterWalkRandom>();
                 var monsterFollow = collision.collider.GetComponent<MonsterFollow>();
                 var soulSpawner = collision.collider.GetComponent<SoulSpawner>();
+                var monsterShot = collision.collider.GetComponent<MonsterShot>();
+                var monsterShooter = collision.collider.GetComponent<MonsterShooter>();
                 if (monsterAI != null)
-                    monsterAI.TakeDamage(damage); // Trừ máu và flash
+                    monsterAI.TakeDamage(finalDamage);
                 if (monsterWalkRandom != null)
-                    monsterWalkRandom.TakeDamage(damage); // Trừ máu và flash
+                    monsterWalkRandom.TakeDamage(finalDamage);
                 if (monsterFollow != null)
-                    monsterFollow.TakeDamage(damage); // Trừ máu và flash
+                    monsterFollow.TakeDamage(finalDamage);
                 if (soulSpawner != null)
-                    soulSpawner.TakeDamage(damage); // Trừ máu và flash
+                    soulSpawner.TakeDamage(finalDamage);
+                if (monsterShot != null)
+                    monsterShot.TakeDamage(finalDamage);
+                if (monsterShooter != null)
+                    monsterShooter.TakeDamage(finalDamage);
             }
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);

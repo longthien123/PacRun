@@ -202,3 +202,7 @@ MonoBehaviour:
   attackCooldown: 2
   monsterAI: {fileID: 9131383528988893856, guid: e790b34ae878e5f4192097da03a45fd7, type: 3}
   plantEffect: {fileID: 2573885260540185823, guid: 5e636ae3604038245babee0e1bd97f1f, type: 3}
+  dropItems:
+  - {fileID: 1611872755377999814, guid: 5adb77a71aa44194f93954350f2ad142, type: 3}
+  - {fileID: 7978277910161688688, guid: cbb9dc07f3308d3498472f6f40f8a1e4, type: 3}
+  dropChance: 0.2

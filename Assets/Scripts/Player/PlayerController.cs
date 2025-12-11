@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public GameObject shurikenPrefab;
     [SerializeField] public GameObject swordPrefab;
+    [SerializeField] public GameObject shieldFx;
+    [SerializeField] public GameObject upgradeFx;
+    [SerializeField] public GameObject redSkullFx;
+    [SerializeField] public GameObject blueSkullFx;
     
 
     private Vector2 lastDir = Vector2.down; // mặc định nhìn xuống
@@ -35,6 +39,18 @@ public class PlayerController : MonoBehaviour
     public float knightTimeLeft = 0f;
     private const float MAX_TRANSFORM_TIME = 20f;
     private bool isTransformActive = false;
+    [Header("Shield System")]
+    public bool isShieldActive = false;
+    public float shieldTimeLeft = 0f;
+    private const float MAX_SHIELD_TIME = 10f;
+    private GameObject activeShieldFx;
+
+    [Header("Upgrade System")]
+    public bool isUpgradeActive = false;
+    public float upgradeTimeLeft = 0f;
+    private const float MAX_UPGRADE_TIME = 10f;
+    private GameObject activeUpgradeFx;
+
 
     void Awake()
     {
@@ -57,6 +73,8 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.UpdateHealthBar(PlayerHealthManager.CurrentHealth, PlayerHealthManager.MaxHealth);
         UIController.Instance.UpdateNinjaTimer(ninjaTimeLeft, MAX_TRANSFORM_TIME);
         UIController.Instance.UpdateKnightTimer(knightTimeLeft, MAX_TRANSFORM_TIME);
+        UIController.Instance.UpdateShieldTimer(shieldTimeLeft, MAX_SHIELD_TIME);
+        UIController.Instance.UpdateUpgradeTimer(upgradeTimeLeft, MAX_UPGRADE_TIME);
     }
 
     void Update()
@@ -104,9 +122,7 @@ public class PlayerController : MonoBehaviour
             if (ninjaTimeLeft <= 0)
             {
                 ninjaTimeLeft = 0;
-                ChangeForm(typeof(NormalCharacter));
-                Debug.Log("Ninja time expired!");
-            }
+                ChangeForm(typeof(NormalCharacter));            }
         }
         else if (currentForm is KnightCharacter && knightTimeLeft > 0)
         {
@@ -115,7 +131,34 @@ public class PlayerController : MonoBehaviour
             {
                 knightTimeLeft = 0;
                 ChangeForm(typeof(NormalCharacter));
-                Debug.Log("Knight time expired!");
+            }
+        }
+        
+        // Đếm thời gian cho khiên
+        if (isShieldActive && shieldTimeLeft > 0)
+        {
+            shieldTimeLeft -= Time.deltaTime;
+            if (shieldTimeLeft <= 0)
+            {
+                shieldTimeLeft = 0;
+                isShieldActive = false;
+                if (activeShieldFx != null)
+                {
+                    Destroy(activeShieldFx);
+                }
+            }
+        }
+        if (isUpgradeActive && upgradeTimeLeft > 0)
+        {
+            upgradeTimeLeft -= Time.deltaTime;
+            if (upgradeTimeLeft <= 0)
+            {
+                upgradeTimeLeft = 0;
+                isUpgradeActive = false;
+                if (activeUpgradeFx != null)
+                {
+                    Destroy(activeUpgradeFx);
+                }
             }
         }
     }
@@ -126,12 +169,12 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.UpdateHealthBar(PlayerHealthManager.CurrentHealth, PlayerHealthManager.MaxHealth);
         UIController.Instance.UpdateNinjaTimer(ninjaTimeLeft, MAX_TRANSFORM_TIME);
         UIController.Instance.UpdateKnightTimer(knightTimeLeft, MAX_TRANSFORM_TIME);
+        UIController.Instance.UpdateShieldTimer(shieldTimeLeft, MAX_SHIELD_TIME);
+        UIController.Instance.UpdateUpgradeTimer(upgradeTimeLeft, MAX_UPGRADE_TIME);
         rb.linearVelocity = playerDirection * currentForm.moveSpeed;
     }
 
-    // ============================================================
     // ATTACK SYSTEM
-    // ============================================================
     void Attack()
     {
         // Chỉ cho phép Ninja và Knight attack
@@ -183,10 +226,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("attack", false);
     }
-
-    // ============================================================
     // CHANGE FORM (ĐÃ FIX CHỐNG SPAM + SMOKE THEO PLAYER)
-    // ============================================================
     void ChangeForm(System.Type formType)
     {
         if (currentFormType == formType)
@@ -206,32 +246,22 @@ public class PlayerController : MonoBehaviour
 
         ApplyFormAnimation();
     }
-
-    // ============================================================
     // SMOKE TỰ THEO PLAYER
-    // ============================================================
     void SpawnFormSmoke(System.Type formType)
     {
         GameObject prefab = null;
-
         if (formType == typeof(NinjaCharacter))
             prefab = smokeEffect;
         else if (formType == typeof(KnightCharacter))
             prefab = smokeKnight;
         else
             prefab = smokeEffect;  // hiệu ứng chung cho Boy
-
         GameObject smoke = Instantiate(prefab, transform.position, Quaternion.identity);
-
         // Để smoke theo player
         smoke.transform.SetParent(transform);
-
         Destroy(smoke, 1f);
     }
-
-    // ============================================================
     // ANIMATIONS
-    // ============================================================
     void ApplyFormAnimation()
     {
         RuntimeAnimatorController controller = null;
@@ -253,24 +283,58 @@ public class PlayerController : MonoBehaviour
 
         animator.runtimeAnimatorController = controller;
     }
-
-    // ============================================================
     // TRANSFORM ITEM SYSTEM (THÊM MỚI)
-    // ============================================================
     public void CollectNinjaItem()
     {
         hasNinjaItem = true;
         ninjaTimeLeft = MAX_TRANSFORM_TIME;
-        Debug.Log("Ninja item collected! Time: 30s");
     }
 
     public void CollectKnightItem()
     {
         hasKnightItem = true;
         knightTimeLeft = MAX_TRANSFORM_TIME;
-        Debug.Log("Knight item collected! Time: 30s");
     }
-
+    public void CollectShieldItem()
+    {
+        isShieldActive = true;
+        shieldTimeLeft = MAX_SHIELD_TIME;
+        
+        // Hủy khiên cũ nếu có
+        if (activeShieldFx != null)
+        {
+            Destroy(activeShieldFx);
+        }
+        
+        // Tạo hiệu ứng khiên mới
+        activeShieldFx = Instantiate(shieldFx, transform.position, Quaternion.identity, transform);
+        
+        // Thêm ShieldEffect component nếu chưa có
+        if (activeShieldFx.GetComponent<ShieldEffect>() == null)
+        {
+            activeShieldFx.AddComponent<ShieldEffect>();
+        } 
+    }
+    public void CollectUpgradeItem()
+    {
+        isUpgradeActive = true;
+        upgradeTimeLeft = MAX_UPGRADE_TIME;
+        
+        // Hủy hiệu ứng cũ nếu có
+        if (activeUpgradeFx != null)
+        {
+            Destroy(activeUpgradeFx);
+        }
+        
+        // Tạo hiệu ứng nâng cấp mới
+        activeUpgradeFx = Instantiate(upgradeFx, transform.position, Quaternion.identity, transform);
+        
+        // Thêm ShieldEffect component nếu chưa có
+        if (activeUpgradeFx.GetComponent<ShieldEffect>() == null)
+        {
+            activeUpgradeFx.AddComponent<ShieldEffect>();
+        }  
+    }
     public float GetNinjaTimeLeft() => ninjaTimeLeft;
     public float GetKnightTimeLeft() => knightTimeLeft;
 }

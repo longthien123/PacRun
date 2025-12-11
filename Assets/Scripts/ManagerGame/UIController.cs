@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider ninjaTimerBar;
     [SerializeField] private Slider knightTimerBar;
+    [SerializeField] private Slider shieldTimerBar;
+    [SerializeField] private Slider upgradeTimerBar;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,6 +41,18 @@ public class UIController : MonoBehaviour
     {
         knightTimerBar.maxValue = maxTime;
         knightTimerBar.value = timeLeft;
+        
+    }
+    public void UpdateShieldTimer(float timeLeft, float maxTime)
+    {
+        shieldTimerBar.maxValue = maxTime;
+        shieldTimerBar.value = timeLeft;
+        
+    }
+    public void UpdateUpgradeTimer(float timeLeft, float maxTime)
+    {
+        upgradeTimerBar.maxValue = maxTime;
+        upgradeTimerBar.value = timeLeft;
         
     }
 }

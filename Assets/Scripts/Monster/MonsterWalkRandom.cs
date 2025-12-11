@@ -22,8 +22,13 @@ public class MonsterWalkRandom : MonoBehaviour
     // Thêm biến để kiểm soát trạng thái bị đẩy lùi
     private bool isKnockedBack = false;
     private float knockbackTimer = 0f;
-    [SerializeField]private GameObject monsterAI;
+    [SerializeField] private GameObject monsterAI;
     [SerializeField] private GameObject plantEffect;
+    
+    // Item Drop System
+    [Header("Item Drop Settings")]
+    [SerializeField] private GameObject[] dropItems; // Mảng các item có thể drop
+    [SerializeField] private float dropChance = 0.2f; // 20% tỷ lệ drop
     
     void Start()
     {
@@ -106,7 +111,8 @@ public class MonsterWalkRandom : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && attackCooldownTimer <= 0f)
+        if (collision.gameObject.CompareTag("Player") && attackCooldownTimer <= 0f 
+        && PlayerController.Instance.isShieldActive == false)
         {
             AttackPlayer(collision.gameObject);
             attackCooldownTimer = attackCooldown;
@@ -142,11 +148,10 @@ public class MonsterWalkRandom : MonoBehaviour
         health -= dmg;
         health = Mathf.Max(0, health);
         StartCoroutine(FlashWhite());
-        Debug.Log($"{gameObject.name} took {dmg} dmg. HP = {health}");
         if (health <= 0) {
             ManagePlayer.Instance.AddMonsterKill(transform.position);
             Die();
-            }
+        }
     }
 
     private System.Collections.IEnumerator FlashWhite()
@@ -164,9 +169,29 @@ public class MonsterWalkRandom : MonoBehaviour
         animator.SetBool("attack", false);
         Debug.Log($"{gameObject.name} died.");
         animator.SetBool("dead", true);
-        
-        Destroy(gameObject,0.3f);
+        // Drop item với tỷ lệ 25%
+        TryDropItem();
+        Destroy(gameObject, 0.3f);
     }
+    
+    void TryDropItem()
+    {
+        // Kiểm tra xem có drop item không (25% chance)
+        if (Random.value <= dropChance)
+        {
+            if (dropItems != null && dropItems.Length > 0)
+            {
+                // Chọn ngẫu nhiên một item từ mảng
+                GameObject randomItem = dropItems[Random.Range(0, dropItems.Length)];
+                
+                if (randomItem != null)
+                {
+                    Instantiate(randomItem, transform.position, Quaternion.identity);
+                }
+            }
+        }
+    }
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Plant"))
