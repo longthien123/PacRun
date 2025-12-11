@@ -195,4 +195,4 @@ MonoBehaviour:
   monsterPrefabs:
   - {fileID: 6279828893562415166, guid: 2d9472e2295a41545a0f2e74a13b2d8e, type: 3}
   spawnPoint: {fileID: 5374243844039936114}
-  spawnInterval: 5
+  spawnInterval: 7

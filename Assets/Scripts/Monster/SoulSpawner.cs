@@ -8,7 +8,7 @@ public class SoulSpawner : MonoBehaviour
     private float timer;
     private Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
     private Animator animator;
-    private int health=200;
+    private int health=150;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -55,6 +55,7 @@ public class SoulSpawner : MonoBehaviour
     public void Die()
     {
         Debug.Log($"{gameObject.name} died.");
+        Instantiate(ManagePlayer.Instance.fallKey, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

@@ -265,7 +265,7 @@ public class MonsterShooter : MonoBehaviour
     {
         animator.SetTrigger("dead");
         Debug.Log($"{gameObject.name} died.");
-        
+        Instantiate(ManagePlayer.Instance.fallKey, transform.position, Quaternion.identity);
         Destroy(gameObject, 2.5f);
     }
 }

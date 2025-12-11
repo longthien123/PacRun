@@ -806,10 +806,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1282345798561632203, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7464010569810762882, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_Size.x
       value: 0.67911816

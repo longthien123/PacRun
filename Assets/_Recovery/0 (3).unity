@@ -806,25 +806,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1282345798561632203, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7464010569810762882, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_Size.x
-      value: 0.67911816
+      value: 0.7038355
       objectReference: {fileID: 0}
     - target: {fileID: 7464010569810762882, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_Size.y
-      value: 0.74214816
+      value: 0.73160076
       objectReference: {fileID: 0}
     - target: {fileID: 7464010569810762882, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_Offset.x
-      value: 0.005730152
+      value: 0.046275616
       objectReference: {fileID: 0}
     - target: {fileID: 7464010569810762882, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_Offset.y
-      value: -0.077355504
+      value: -0.087924
       objectReference: {fileID: 0}
     - target: {fileID: 8257672544849875506, guid: 9423284a481e9cf41ae32e26d00a2ad8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2298,10 +2294,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6374034501878669434, guid: 80d782be4b124804f8358e333b4a8770, type: 3}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2536,8 +2528,8 @@ MonoBehaviour:
   keysCollected: 0
   monstersKilled: 0
   chestsOpened: 0
-  currentLevel: 3
-  requiredChests: 8
+  currentLevel: 1
+  requiredChests: 6
   portal: {fileID: 1700566272}
   fallKey: {fileID: 9074195237523953637, guid: 2b39e408b6794de4cba211bc9ae6775d, type: 3}
 --- !u!4 &923981267
@@ -3635,14 +3627,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3130102718998562119, guid: b4767dbbfea0c324e88ba698359d105b, type: 3}
-      propertyPath: spawnInterval
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3212905272951146511, guid: b4767dbbfea0c324e88ba698359d105b, type: 3}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5374243844039936114, guid: b4767dbbfea0c324e88ba698359d105b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.501996

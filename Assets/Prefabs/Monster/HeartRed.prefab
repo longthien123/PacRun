@@ -168,7 +168,7 @@ MonoBehaviour:
   monsterPrefabs:
   - {fileID: 1974005398648232227, guid: 64be6d63d62a4864fb276e89da8ecadc, type: 3}
   spawnPoint: {fileID: 6248934191553734261}
-  spawnInterval: 5
+  spawnInterval: 7
 --- !u!50 &6374034501878669434
 Rigidbody2D:
   serializedVersion: 5
