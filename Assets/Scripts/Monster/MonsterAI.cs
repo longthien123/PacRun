@@ -38,6 +38,10 @@ public class MonsterAI : MonoBehaviour
     private float attackCooldownTimer = 0f;
     public float attackCooldown = 0.5f;
 
+    [Header("Item Drop Settings")]
+    [SerializeField] private GameObject[] dropItems; // Mảng các item có thể drop
+    [SerializeField] private float dropChance = 0.25f; // 30% tỷ lệ drop
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -220,6 +224,12 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && attackCooldownTimer <= 0f)
         {
+            // Kiểm tra khiên trước khi gây sát thương
+            if (PlayerController.Instance.isShieldActive)
+            {
+                return;
+            }
+            
             // damage: Knight 20, others 30
             var cb = collision.gameObject.GetComponent<CharacterBase>();
             if (cb != null)
@@ -257,7 +267,6 @@ public class MonsterAI : MonoBehaviour
         health -= dmg;
         health = Mathf.Max(0, health);
         StartCoroutine(FlashWhite());
-        Debug.Log($"{gameObject.name} took {dmg} dmg. HP = {health}");
         if (health <= 0){ Die();
             ManagePlayer.Instance.AddMonsterKill(transform.position);
             Die();
@@ -278,8 +287,24 @@ public class MonsterAI : MonoBehaviour
     {  
         animator.SetBool("attack", false);
         animator.SetBool("dead", true);
-        Debug.Log($"{gameObject.name} died.");
+        TryDropItem();
         Destroy(gameObject,0.3f);
+    }
+    void TryDropItem()
+    {
+        // Kiểm tra xem có drop item không (25% chance)
+        if (Random.value <= dropChance)
+        {
+            if (dropItems != null && dropItems.Length > 0)
+            {
+                // Chọn ngẫu nhiên một item từ mảng
+                GameObject randomItem = dropItems[Random.Range(0, dropItems.Length)];
+                if (randomItem != null)
+                {
+                    Instantiate(randomItem, transform.position, Quaternion.identity);
+                }
+            }
+        }
     }
 
 }

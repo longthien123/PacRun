@@ -51,6 +51,13 @@ public class Sword : MonoBehaviour
         {
             Instantiate(hitEffect, transform.position, Quaternion.identity);
 
+            // Tính sát thương (gấp đôi nếu upgrade active)
+            int finalDamage = damage;
+            if (PlayerController.Instance != null && PlayerController.Instance.isUpgradeActive)
+            {
+                finalDamage *= 2;
+            }
+
             // Đẩy lùi Monster
             Rigidbody2D monsterRb = collision.GetComponent<Rigidbody2D>();
             if (monsterRb != null)
@@ -64,24 +71,35 @@ public class Sword : MonoBehaviour
             var monsterWalkRandom = collision.GetComponent<MonsterWalkRandom>();
             var monsterFollow = collision.GetComponent<MonsterFollow>();
             var soulSpawner = collision.GetComponent<SoulSpawner>();
+            var monsterShot = collision.GetComponent<MonsterShot>();
+            var monsterShooter = collision.GetComponent<MonsterShooter>();
+            
             if (monsterAI != null)
             {
                 monsterAI.ApplyKnockback(0.5f);
-                monsterAI.TakeDamage(damage); // Trừ máu và flash
+                monsterAI.TakeDamage(finalDamage);
             }
             if (monsterWalkRandom != null)
             {
                 Vector2 knockbackDirection = (collision.transform.position - playerTransform.position).normalized;
                 monsterWalkRandom.ApplyKnockback(knockbackDirection, knockbackForce, 0.5f);
-                monsterWalkRandom.TakeDamage(damage); // Trừ máu và flash
+                monsterWalkRandom.TakeDamage(finalDamage);
             }
             if (monsterFollow != null)
             {
-                monsterFollow.TakeDamage(damage); // Trừ máu và flash
+                monsterFollow.TakeDamage(finalDamage);
             }
             if (soulSpawner != null)
             {
-                soulSpawner.TakeDamage(damage); // Trừ máu và flash
+                soulSpawner.TakeDamage(finalDamage);
+            }
+            if (monsterShot != null)
+            {
+                monsterShot.TakeDamage(finalDamage);
+            }
+            if (monsterShooter != null)
+            {
+                monsterShooter.TakeDamage(finalDamage);
             }
         }
     }

@@ -16,11 +16,16 @@ public class CharacterBase : MonoBehaviour
 
     public virtual void Attack()
     {
-        Debug.Log("Base attack");
     }
 
     public virtual void TakeDamage(int damage)
     {
+        // Kiểm tra nếu có khiên thì không nhận sát thương
+        if (PlayerController.Instance != null && PlayerController.Instance.isShieldActive)
+        {
+            return;
+        }
+        
         PlayerHealthManager.TakeDamage(damage);
         StartCoroutine(FlashMaterial());
     }
@@ -29,21 +34,24 @@ public class CharacterBase : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Plant"))
         {
+            if(PlayerHealthManager.CurrentHealth < PlayerHealthManager.MaxHealth)
+            {
+                PlayerHealthManager.Heal(10);
+                Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
+                Destroy(collision.gameObject);
+            }
             if(PlayerController.Instance.hasKnightItem && PlayerController.Instance.hasNinjaItem 
             && PlayerController.Instance.ninjaTimeLeft <= 20f && PlayerController.Instance.knightTimeLeft <= 20f)
             {
             Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
             PlayerController.Instance.ninjaTimeLeft += 2f;
-            Debug.Log("Ninja Time: " + PlayerController.Instance.ninjaTimeLeft);
+            PlayerController.Instance.ninjaTimeLeft += 2f;
             PlayerController.Instance.knightTimeLeft += 2f;
-            Debug.Log("Knight Time: " + PlayerController.Instance.knightTimeLeft);
             Destroy(collision.gameObject);
             }
             else
             {
                 Destroy(collision.gameObject);
-                Debug.Log("Ninja Time: " + PlayerController.Instance.ninjaTimeLeft);
-                Debug.Log("Knight Time: " + PlayerController.Instance.knightTimeLeft);
             }
         }
         else if(collision.gameObject.CompareTag("Key"))
@@ -98,6 +106,17 @@ public class CharacterBase : MonoBehaviour
             Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("ShieldItem"))
+        {
+            PlayerController.Instance.CollectShieldItem();
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("UpgradeItem"))
+        {
+            PlayerController.Instance.CollectUpgradeItem();
+            Destroy(collision.gameObject);
+        }
+        
     }
 
     private System.Collections.IEnumerator FlashMaterial()

@@ -202,3 +202,8 @@ MonoBehaviour:
   defaultMaterial: {fileID: 0}
   flashMaterial: {fileID: 2100000, guid: aa8e1e9e802a44044b0faae628aa265d, type: 2}
   deathEffect: {fileID: 189330993576797899, guid: ec58b204974698643b28339f243348a0, type: 3}
+  dropItems:
+  - {fileID: 858258098693278886, guid: 7398878a454cb284b86b115bbd52fca8, type: 3}
+  - {fileID: 1611872755377999814, guid: 5adb77a71aa44194f93954350f2ad142, type: 3}
+  - {fileID: 7978277910161688688, guid: cbb9dc07f3308d3498472f6f40f8a1e4, type: 3}
+  dropChance: 0.15

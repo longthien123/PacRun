@@ -20,16 +20,19 @@ public static class PlayerHealthManager
     public static void TakeDamage(int damage)
     {
         currentHealth = Mathf.Max(0, currentHealth - damage);
-        Debug.Log($"Player took {damage} dmg. HP = {currentHealth}");
         OnHealthChanged?.Invoke(currentHealth);
         if (currentHealth <= 0) PlayerDied();
     }
 
     private static void PlayerDied()
     {
-        Debug.Log("Player died (shared health).Game Over.");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         
         // Thêm event / logic nếu cần
+    }
+    public static void Heal(int amount)
+    {
+        currentHealth = Mathf.Min(MaxHealth, currentHealth + amount);
+        OnHealthChanged?.Invoke(currentHealth);
     }
 }

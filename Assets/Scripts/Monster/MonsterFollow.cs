@@ -26,6 +26,10 @@ public class MonsterFollow : MonoBehaviour
     private Vector2 moveDirection;
     private float pathUpdateTimer;
 
+    [Header("Item Drop Settings")]
+    [SerializeField] private GameObject[] dropItems; // Mảng các item có thể drop
+    [SerializeField] private float dropChance = 0.15f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -153,6 +157,14 @@ public class MonsterFollow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Kiểm tra khiên trước khi gây sát thương
+            if (PlayerController.Instance.isShieldActive)
+            {
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+                return;
+            }
+            
             var cb = collision.gameObject.GetComponent<CharacterBase>();
             if (cb != null)
             {
@@ -179,7 +191,6 @@ public class MonsterFollow : MonoBehaviour
         health -= dmg;
         health = Mathf.Max(0, health);
         StartCoroutine(FlashWhite());
-        Debug.Log($"{gameObject.name} took {dmg} dmg. HP = {health}");
         if (health <= 0)
         {
             Die();
@@ -198,8 +209,25 @@ public class MonsterFollow : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log($"{gameObject.name} died.");
         Instantiate(deathEffect, transform.position, Quaternion.identity);
+        TryDropItem();
         Destroy(gameObject);
+    }
+    void TryDropItem()
+    {
+        // Kiểm tra xem có drop item không (25% chance)
+        if (Random.value <= dropChance)
+        {
+            if (dropItems != null && dropItems.Length > 0)
+            {
+                // Chọn ngẫu nhiên một item từ mảng
+                GameObject randomItem = dropItems[Random.Range(0, dropItems.Length)];
+                
+                if (randomItem != null)
+                {
+                    Instantiate(randomItem, transform.position, Quaternion.identity);
+                }
+            }  
+        }
     }
 }
