@@ -31,6 +31,7 @@ public class MonsterShooter : MonoBehaviour
     private float shootCooldownTimer = 0f;
     private bool isShooting = false;
     private float shootAnimationTimer = 0f;
+    private bool keysDropped = false;
 
     void Start()
     {
@@ -265,7 +266,15 @@ public class MonsterShooter : MonoBehaviour
     {
         animator.SetTrigger("dead");
         Debug.Log($"{gameObject.name} died.");
-        Instantiate(ManagePlayer.Instance.fallKey, transform.position, Quaternion.identity);
+        DropKey();
         Destroy(gameObject, 2.5f);
+    }
+    public void DropKey()
+    {
+        if (keysDropped==false)
+        {
+            Instantiate(ManagePlayer.Instance.fallKey, transform.position, Quaternion.identity);
+            keysDropped = true;
+        }
     }
 }
