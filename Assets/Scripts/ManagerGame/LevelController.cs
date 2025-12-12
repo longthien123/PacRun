@@ -6,12 +6,12 @@ public class LevelController : MonoBehaviour
     // // Method xử lý khi bấm nút YES - chuyển qua level_3
     public void OnYesLevel2ButtonClicked()
     {
-        SceneManager.LoadScene("next_level2");
+        SceneManager.LoadScene("ChristmasDay");
     }
     // Method xử lý khi bấm nút YES - chuyển qua level_3
     public void OnYesLevel3ButtonClicked()
     {
-        SceneManager.LoadScene("next_level3");
+        SceneManager.LoadScene("Happy New Year");
     }
 
     // Method xử lý khi bấm nút NO - quay về Home

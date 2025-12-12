@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider knightTimerBar;
     [SerializeField] private Slider shieldTimerBar;
     [SerializeField] private Slider upgradeTimerBar;
+    [SerializeField] private TMP_Text monsterKilled;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,6 +31,10 @@ public class UIController : MonoBehaviour
     public void UpdateKeyCount(int keyCount)
     {
         keyCountText.text = $"x{keyCount}";
+    }
+    public void UpdateMonsterKilled(int count)
+    {
+        monsterKilled.text = $"x{count}";
     }
     public void UpdateNinjaTimer(float timeLeft, float maxTime)
     {
@@ -55,4 +60,5 @@ public class UIController : MonoBehaviour
         upgradeTimerBar.value = timeLeft;
         
     }
+    
 }

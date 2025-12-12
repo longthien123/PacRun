@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterBase : MonoBehaviour
 {
@@ -89,7 +90,14 @@ public class CharacterBase : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Target"))
         {
-            Debug.Log("Bạn đã vào cổng và hoàn thành cấp độ!");
+           SceneManager.LoadScene("next_level2");
+        }else if (collision.gameObject.CompareTag("Target2"))
+        {
+           SceneManager.LoadScene("next_level3");
+        }
+        else if (collision.gameObject.CompareTag("Target3"))
+        {
+           SceneManager.LoadScene("game_over");
         }
         else if (collision.gameObject.CompareTag("NinjaItem"))
         {

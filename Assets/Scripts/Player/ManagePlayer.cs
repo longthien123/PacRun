@@ -8,6 +8,7 @@ public class ManagePlayer : MonoBehaviour
     public int monstersKilled = 0;
     public int chestsOpened = 0;
     private int keysDropped = 0; // Số chìa đã rơi
+
     
    
     
@@ -50,7 +51,7 @@ public class ManagePlayer : MonoBehaviour
     public void AddMonsterKill(Vector3 deathPosition)
     {
         monstersKilled++;
-
+        UIController.Instance.UpdateMonsterKilled(monstersKilled);
             if (keysDropped < maxKeys && (monstersKilled ==5 || monstersKilled ==10 || monstersKilled ==15 || monstersKilled ==20))
         {
             keysDropped++;

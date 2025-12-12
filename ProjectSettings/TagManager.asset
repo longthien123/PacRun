@@ -16,6 +16,8 @@ TagManager:
   - KnightItem
   - ShieldItem
   - UpgradeItem
+  - Target2
+  - Target3
   layers:
   - Default
   - TransparentFX
