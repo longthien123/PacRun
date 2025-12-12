@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 93085463}
   - component: {fileID: 93085462}
   - component: {fileID: 93085466}
+  - component: {fileID: 93085467}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -521,6 +522,18 @@ MonoBehaviour:
   knightTimerBar: {fileID: 1651785222}
   shieldTimerBar: {fileID: 619520853}
   upgradeTimerBar: {fileID: 1967240742}
+--- !u!114 &93085467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93085461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e34d36ff964bc4aa14d9ca6578fbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMusicHandler
 --- !u!1 &141562650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,7 +1503,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -2.1739714e-17, y: 0.0000000031423983, z: 6.831484e-26, w: 1}
-  m_LocalPosition: {x: 4.057656, y: 0.52825004, z: -10}
+  m_LocalPosition: {x: 5.580616, y: 0.52943003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5201,8 +5214,8 @@ MonoBehaviour:
   keysCollected: 0
   monstersKilled: 0
   chestsOpened: 0
-  currentLevel: 1
   requiredChests: 4
+  maxKeys: 4
   portal: {fileID: 80138872}
   fallKey: {fileID: 9074195237523953637, guid: 2b39e408b6794de4cba211bc9ae6775d, type: 3}
 --- !u!4 &923981267

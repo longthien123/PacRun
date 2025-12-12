@@ -1610,7 +1610,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -2.1739714e-17, y: 0.0000000031423983, z: 6.831484e-26, w: 1}
-  m_LocalPosition: {x: -9.563566, y: -1.3565199, z: -10}
+  m_LocalPosition: {x: -11.086523, y: -1.3571799, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9262,6 +9262,7 @@ GameObject:
   - component: {fileID: 2024059861}
   - component: {fileID: 2024059860}
   - component: {fileID: 2024059859}
+  - component: {fileID: 2024059864}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -9373,6 +9374,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2024059864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024059858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e34d36ff964bc4aa14d9ca6578fbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMusicHandler
 --- !u!1 &2074684323
 GameObject:
   m_ObjectHideFlags: 0
