@@ -26,15 +26,24 @@ public static class PlayerHealthManager
 
     private static void PlayerDied()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        
-        // Thêm event / logic nếu cần
+        //  GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            SceneManager.LoadScene("game_over");
+        }
+
     }
     public static void Heal(int amount)
     {
-        if(currentHealth < MaxHealth){
-        currentHealth = Mathf.Min(MaxHealth, currentHealth + amount);
-        OnHealthChanged?.Invoke(currentHealth);
+        if (currentHealth < MaxHealth)
+        {
+            currentHealth = Mathf.Min(MaxHealth, currentHealth + amount);
+            OnHealthChanged?.Invoke(currentHealth);
         }
     }
 }
