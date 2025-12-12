@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoulSpawner : MonoBehaviour
 {
@@ -8,14 +9,36 @@ public class SoulSpawner : MonoBehaviour
     private float timer;
     private Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
     private Animator animator;
-    private int health=150;
+    
+    [Header("Health System")]
+    private int health = 150;
+    private int maxHealth;
+    [SerializeField] private Slider healthSlider;
     void Start()
     {
         animator = GetComponent<Animator>();
         timer = spawnInterval;
+        
+        // Khởi tạo health bar
+        maxHealth = health;
+        if (healthSlider == null)
+            healthSlider = GetComponentInChildren<Slider>(true);
+        if (healthSlider == null)
+            Debug.LogWarning($"{gameObject.name}: Không tìm thấy Slider component!");
+        UpdateHealthBar();
+        
         SpawnMonster();
         if (spawnPoint == null)
             spawnPoint = transform;
+    }
+    
+    void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
     }
 
     void Update()
@@ -46,6 +69,7 @@ public class SoulSpawner : MonoBehaviour
         animator.SetTrigger("attacked");
         health -= dmg;
         health = Mathf.Max(0, health);
+        UpdateHealthBar();
         Debug.Log($"{gameObject.name} took {dmg} dmg. HP = {health}");
         if (health <= 0)
         {

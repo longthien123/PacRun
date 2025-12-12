@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class MonsterAI : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class MonsterAI : MonoBehaviour
     [Header("A* Settings")]
     public float pathUpdateInterval = 0.5f;
 
+    [Header("Health System")]
     public int health = 60;
+    private int maxHealth;
+    [SerializeField] private Slider healthSlider;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material flashMaterial;
@@ -54,9 +58,26 @@ public class MonsterAI : MonoBehaviour
 
         rb.freezeRotation = true;
 
+        // Khởi tạo health bar
+        maxHealth = health;
+        if (healthSlider == null)
+            healthSlider = GetComponentInChildren<Slider>(true);
+        if (healthSlider == null)
+            Debug.LogWarning($"{gameObject.name}: Không tìm thấy Slider component!");
+        UpdateHealthBar();
+
         ChooseNewDirection();
         changeDirTimer = Random.Range(1.5f, 3f);
         pathUpdateTimer = 0.5f;
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
     }
 
     void Update()
@@ -266,6 +287,7 @@ public class MonsterAI : MonoBehaviour
     {
         health -= dmg;
         health = Mathf.Max(0, health);
+        UpdateHealthBar();
         StartCoroutine(FlashWhite());
         if (health <= 0){ Die();
             ManagePlayer.Instance.AddMonsterKill(transform.position);

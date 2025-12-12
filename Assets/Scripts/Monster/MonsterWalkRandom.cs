@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterWalkRandom : MonoBehaviour
 {
@@ -6,7 +7,10 @@ public class MonsterWalkRandom : MonoBehaviour
     public LayerMask wallLayer;           // Layer của tường
     public float changeDirInterval = 2f;  // Khoảng thời gian tự đổi hướng
 
+    [Header("Health System")]
     public int health = 40; // máu của WalkRandom
+    private int maxHealth;
+    [SerializeField] private Slider healthSlider;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material flashMaterial;
@@ -40,8 +44,25 @@ public class MonsterWalkRandom : MonoBehaviour
 
         rb.freezeRotation = true;
 
+        // Khởi tạo health bar
+        maxHealth = health;
+        if (healthSlider == null)
+            healthSlider = GetComponentInChildren<Slider>(true);
+        if (healthSlider == null)
+            Debug.LogWarning($"{gameObject.name}: Không tìm thấy Slider component!");
+        UpdateHealthBar();
+
         ChooseNewDirection(); // Hướng ngẫu nhiên ban đầu
         changeDirTimer = changeDirInterval;
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
     }
 
     void Update()
@@ -147,6 +168,7 @@ public class MonsterWalkRandom : MonoBehaviour
     {
         health -= dmg;
         health = Mathf.Max(0, health);
+        UpdateHealthBar();
         StartCoroutine(FlashWhite());
         if (health <= 0) {
             ManagePlayer.Instance.AddMonsterKill(transform.position);

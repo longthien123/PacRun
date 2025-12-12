@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterShooter : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MonsterShooter : MonoBehaviour
 
     [Header("Combat Settings")]
     public int health = 300;
+    private int maxHealth;
+    [SerializeField] private Slider healthSlider;
     public float detectionRange = 6f;
     public float shootCooldown = 2f;
     public float shootAnimationDuration = 2f;
@@ -44,6 +47,14 @@ public class MonsterShooter : MonoBehaviour
             defaultMaterial = spriteRenderer.material;
 
         rb.freezeRotation = true;
+
+        // Khởi tạo health bar
+        maxHealth = health;
+        if (healthSlider == null)
+            healthSlider = GetComponentInChildren<Slider>(true);
+        if (healthSlider == null)
+            Debug.LogWarning($"{gameObject.name}: Không tìm thấy Slider component!");
+        UpdateHealthBar();
 
         ChooseNewDirection();
         changeDirTimer = changeDirInterval;
@@ -228,7 +239,14 @@ public class MonsterShooter : MonoBehaviour
             animator.SetTrigger("attack");
         }
     }
-
+ void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = health;
+        }
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Plant"))
@@ -242,6 +260,7 @@ public class MonsterShooter : MonoBehaviour
     {
         health -= dmg;
         health = Mathf.Max(0, health);
+        UpdateHealthBar();
         StartCoroutine(FlashWhite());
         Debug.Log($"{gameObject.name} took {dmg} dmg. HP = {health}");
         if (health <= 0)
