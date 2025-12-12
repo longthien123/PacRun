@@ -97,7 +97,7 @@ public class CharacterBase : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Target3"))
         {
-           SceneManager.LoadScene("game_over");
+           SceneManager.LoadScene("game_win");
         }
         else if (collision.gameObject.CompareTag("NinjaItem"))
         {
