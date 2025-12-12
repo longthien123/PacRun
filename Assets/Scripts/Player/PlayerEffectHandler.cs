@@ -33,7 +33,9 @@ public class PlayerEffectHandler : MonoBehaviour
             
             if (burnTickTimer <= 0f)
             {
+                if (PlayerController.Instance != null){
                 Instantiate(PlayerController.Instance.redSkullFx, transform.position, Quaternion.identity);
+                }
                 // Gây damage mỗi giây
                 PlayerHealthManager.TakeDamage((int)burnDamagePerSecond);
                 Debug.Log($"Burn damage: {burnDamagePerSecond}");

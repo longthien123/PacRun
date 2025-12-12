@@ -161,16 +161,18 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-    }
-
-    void FixedUpdate()
-    {
+        
+        // Cập nhật UI (chỉ trong Update, không phải FixedUpdate)
         UIController.Instance.UpdateKeyCount(ManagePlayer.Instance.keysCollected);
         UIController.Instance.UpdateHealthBar(PlayerHealthManager.CurrentHealth, PlayerHealthManager.MaxHealth);
         UIController.Instance.UpdateNinjaTimer(ninjaTimeLeft, MAX_TRANSFORM_TIME);
         UIController.Instance.UpdateKnightTimer(knightTimeLeft, MAX_TRANSFORM_TIME);
         UIController.Instance.UpdateShieldTimer(shieldTimeLeft, MAX_SHIELD_TIME);
         UIController.Instance.UpdateUpgradeTimer(upgradeTimeLeft, MAX_UPGRADE_TIME);
+    }
+
+    void FixedUpdate()
+    {
         rb.linearVelocity = playerDirection * currentForm.moveSpeed;
     }
 

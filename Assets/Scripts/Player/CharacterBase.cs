@@ -36,12 +36,15 @@ public class CharacterBase : MonoBehaviour
         {
             Instantiate(PlayerController.Instance.effectCollectKey, transform.position, Quaternion.identity);
             PlayerHealthManager.Heal(10);
-            if(PlayerController.Instance.hasKnightItem && PlayerController.Instance.hasNinjaItem 
-            && PlayerController.Instance.ninjaTimeLeft <= 20f && PlayerController.Instance.knightTimeLeft <= 20f)
+            if(PlayerController.Instance.hasNinjaItem && PlayerController.Instance.ninjaTimeLeft <= 20f)
             {
-            PlayerController.Instance.ninjaTimeLeft += 2f;
-            PlayerController.Instance.knightTimeLeft += 2f;
-            Destroy(collision.gameObject);
+                PlayerController.Instance.ninjaTimeLeft += 2f;
+                Destroy(collision.gameObject);
+            }
+            if(PlayerController.Instance.hasKnightItem && PlayerController.Instance.knightTimeLeft <= 20f)
+            {
+                PlayerController.Instance.knightTimeLeft += 2f;
+                Destroy(collision.gameObject);
             }
             else
             {

@@ -191,5 +191,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22da54e4806c354386b582f9d6f02a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plant
-  lifetime: 10
+  lifetime: 30
   disappearEffect: {fileID: 2573885260540185823, guid: 5e636ae3604038245babee0e1bd97f1f, type: 3}

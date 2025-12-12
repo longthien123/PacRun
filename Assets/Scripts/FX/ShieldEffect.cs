@@ -51,11 +51,14 @@ public class ShieldEffect : MonoBehaviour
     void OnDestroy()
     {
         // Dừng tất cả particles khi destroy
-        foreach (var ps in particleSystems)
+        if (particleSystems != null)
         {
-            if (ps != null)
+            foreach (var ps in particleSystems)
             {
-                ps.Stop();
+                if (ps != null)
+                {
+                    ps.Stop();
+                }
             }
         }
     }
